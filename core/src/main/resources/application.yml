@@ -1,0 +1,35 @@
+
+spring.application:
+  name: 'core'
+
+server:
+  port: 19095
+  tomcat:
+    accesslog.enabled: true
+    accesslog.pattern: '%t %a "%r" %s (%D ms)'
+  undertow:
+    accesslog.enabled: true
+    accesslog.pattern: '%t %a "%r" %s (%D ms)'
+
+hystrix:
+  threadpool.default.coreSize: 5000 #50
+  threadpool.default.maxQueueSize: 5000
+  threadpool.default.queueSizeRejectionThreshold: 3000
+  command:
+    default:
+      execution.isolation.thread.timeoutInMilliseconds: 7200000  # 2hours
+      fallback.isolation.semaphore.maxConcurrentRequests: 5000 #50
+      execution.isolation.semaphore.maxConcurrentRequests: 5000 #50
+      default.execution.timeout.enabled: false
+
+feign.hystrix.enabled: true
+
+analysor:
+  ribbon.listOfServers: http://localhost:19091
+executor:
+  ribbon.listOfServers: http://localhost:19099
+
+
+
+
+

@@ -1,0 +1,140 @@
+spring:
+  profiles:
+    active: envDev
+
+spring.application:
+  name: 'executor'
+
+server:
+#  port: 19092
+  port: 19099
+  tomcat:
+    accesslog.enabled: true
+    accesslog.pattern: '%t %a "%r" %s (%D ms)'
+  undertow:
+    accesslog.enabled: true
+    accesslog.pattern: '%t %a "%r" %s (%D ms)'
+
+hystrix:
+  threadpool.default.coreSize: 5000 #50
+  threadpool.default.maxQueueSize: 5000
+  threadpool.default.queueSizeRejectionThreshold: 3000
+  command:
+    default:
+      execution.isolation.thread.timeoutInMilliseconds: 7200000  # 2hours 600000 10min #600000 1min
+      fallback.isolation.semaphore.maxConcurrentRequests: 5000 #50
+      execution.isolation.semaphore.maxConcurrentRequests: 5000 #50
+      default.execution.timeout.enabled: false
+
+
+feign.hystrix.enabled: true
+
+
+facade:
+  ribbon.listOfServers: http://localhost:19090
+
+
+
+############### Datasource Config###########################
+#hive.spring.datasource:
+#  name: hiveDataSource # Name of the datasource.
+#  driver-class-name: 'org.apache.hive.jdbc.HiveDriver'
+#
+#hbase.spring.datasource:
+#  continue-on-error: false # Do not stop if an error occurs while initializing the database.
+#  initialize: false # Populate the database using 'data.sql'.
+#  jmx-enabled: false # Enable JMX support (if provided by the underlying pool).
+#  max-active: 100
+#  max-idle: 30
+#  min-idle: 8
+#  name: hbaseDataSource
+#  test-while-idle: false
+#  time-between-eviction-runs-millis: 5
+#  validation-query: 'SELECT 1'
+#  type: 'com.zaxxer.hikari.HikariDataSource'
+#  driver-class-name: 'org.apache.phoenix.jdbc.PhoenixDriver'
+#
+#presto.spring.datasource:
+#  name: prestoDataSource
+#  driver-class-name: 'com.facebook.presto.jdbc.PrestoDriver'
+#
+#sparksql.spring.datasource:
+#  name: sparksqlDataSource
+#  driver-class-name: 'org.apache.hive.jdbc.HiveDriver'
+#
+#mycat.spring.datasource:
+#    connectionTimeout: 900000  #15min
+#    maxLifetime: 60000
+#    idleTimeout: 60000
+#    validationTimeout: 3000
+#    maximumPoolSize: 100
+#    minimumIdle: 10
+#    connectionTestQuery: 'select 1'
+#    type: 'com.zaxxer.hikari.HikariDataSource'
+#    driverClassName: 'com.mysql.jdbc.Driver'
+
+mysql.spring.datasource:
+  name: mysqlDataSource
+  driver-class-name: 'com.mysql.jdbc.Driver'
+############### Datasource Config #########################
+
+executor:
+  responseSize: 1000   #the result of sql is limited by this size
+
+
+
+
+#########################################生产环境####################################################
+---
+spring:
+  profiles: envProd
+
+
+
+#########################################预发布环境####################################################
+---
+spring:
+  profiles: envPrer
+
+
+
+#########################################测试环境####################################################
+---
+spring:
+  profiles: envTest
+
+
+
+#########################################开发环境####################################################
+---
+spring:
+  profiles: envDev
+#mycat.spring.datasource:
+#   jdbcUrl: 'jdbc:mysql://localhost:8066/testdb?useUnicode=true&characterEncoding=utf-8'
+#   username: mycat
+#   password: mycat
+#
+#hive.spring.datasource:
+#  url: 'jdbc:hive2://localhost:16000/hive/'
+#  username:
+#  password:
+#
+#hbase.spring.datasource:
+#  url: 'jdbc:phoenix:t1,t2,t3:2181'
+#  username:
+#  password:
+#
+#presto.spring.datasource:
+#  url: 'jdbc:presto://localhost:18080/hive/'
+#  username:
+#  password:
+#
+#sparksql.spring.datasource:
+#  url: 'jdbc:hive2://localhost:16000/hive/'
+#  username:
+#  password:
+
+mysql.spring.datasource:
+  url: 'jdbc:mysql://localhost:3306/db1'
+  username: root
+  password: 123456

@@ -1,0 +1,22 @@
+spring.application:
+  name: 'analysor'
+
+server:
+  port: 8088
+
+#hqlfile:
+#  path: "/Users/golden/Projects/DQP/analysor/testData/"
+
+
+---
+spring:
+  profiles: default
+
+---
+spring:
+  profiles: envProd
+
+---
+spring:
+  profiles: envDev
+

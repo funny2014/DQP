@@ -1,0 +1,21 @@
+server:
+  port: 8088
+
+spring.datasource.family:
+  url: jdbc:mysql://127.0.0.1:3306/demo
+  username: root
+  password:
+  driver-class-name: com.mysql.jdbc.Driver
+
+#keycloak配置文件
+keycloak:
+  configurationFile: "classpath:keycloak.json"
+
+#Docker keycloak 相关 (目前只能是本地测试 有具体环境后需要再配置一套)
+#keycloak:
+#  auth-server-url: ${KEYCLOAK_URL:http://localhost:8080/auth}
+#  realm: ${KEYCLOAK_REALM:dqp}
+#  public-client: true
+#  resource: ${KEYCLOAK_RESOURCE:dqp-app}
+#  principal-attribute: preferred_username
+#  cors: true

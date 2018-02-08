@@ -1,0 +1,40 @@
+spring.application:
+  name: 'facade'
+
+server:
+  port: 19090
+  tomcat:
+    accesslog.enabled: true
+    accesslog.pattern: '%t %a "%r" %s (%D ms)'
+  undertow:
+    accesslog.enabled: true
+    accesslog.pattern: '%t %a "%r" %s (%D ms)'
+    
+hystrix:
+  threadpool:
+    default:
+      coreSize: 5000 #并发执行的最大线程数 50
+      maxQueueSize: 5000 #BlockingQueue的最大队列数 ---
+      queueSizeRejectionThreshold: 3000 #即使maxQueueSize没有达到，达到queueSizeRejectionThreshold该值后，请求也会被拒绝 ---
+  command:
+    default:
+      execution.isolation.thread.timeoutInMilliseconds: 7200000  #命令执行超时时间 2hours 600000 10min #600000 1min
+      fallback.isolation.semaphore.maxConcurrentRequests:  5000 #如果并发数达到该设置值，请求会被拒绝和抛出异常并且fallback不会被调用。50
+      execution.isolation.semaphore.maxConcurrentRequests: 5000 #最大并发请求数50
+      default.execution.timeout.enabled: false     #执行是否启用超时
+
+feign.hystrix.enabled: true
+
+core:
+  ribbon.listOfServers: http://localhost:19095
+executor:
+  ribbon.listOfServers: http://localhost:19092
+
+
+
+
+
+
+
+
+
